@@ -115,25 +115,6 @@ class Trainer extends Authenticatable
             'level' => $this->level
         ];
     }
-
-    // ============ REMOVE ALL COMPLEX METHODS ============
-    // DELETE or COMMENT OUT these methods:
-    // private function grantDailyReward() { ... }
-    // public function addExperience($xp) { ... }
-    // private function checkLevelUp() { ... }
-    // private function calculateNextLevelXP() { ... }
-    // public function getStreakStatus() { ... }
-    // private function getDailyLoginMessage() { ... }
-    // public function getRewardsHistory($limit = 10) { ... }
-    // public function getTodaysRewardStatus() { ... }
-    // public function getStreakProgress() { ... }
-    // private function getNextStreakMilestone() { ... }
-    // public function resetStreak() { ... }
-    // public function getXpPercentageAttribute() { ... }
-    // public function getLevelProgressAttribute() { ... }
-    // public function getRankingAttribute() { ... }
-
-    // ============ KEEP YOUR EXISTING RELATIONSHIPS ============
     // Relationships
     public function teams()
     {

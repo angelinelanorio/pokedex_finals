@@ -12,7 +12,6 @@ class ProfileController extends Controller
     // Show trainer profile
     public function show()
 {
-    // Gamitin ang session data imbes na Auth::user()
     $trainerId = session('trainer_id');
     
     if (!$trainerId) {
@@ -35,7 +34,7 @@ class ProfileController extends Controller
     // Get trading partners
     $tradingPartners = $this->getTradingPartners($trainer);
     
-    // CALCULATE TEAM COUNT AND TRADE COUNT - ADD THESE
+    // CALCULATE TEAM COUNT AND TRADE COUNT 
     $teamCount = $trainer->activeTeam()->count();
     
     // Calculate trades count properly
@@ -61,8 +60,8 @@ class ProfileController extends Controller
         'recentActivity', 
         'badges', 
         'tradingPartners',
-        'teamCount',  // ADD THIS
-        'tradeCount'  // ADD THIS
+        'teamCount',  
+        'tradeCount' 
     ));
 }
     
@@ -117,7 +116,7 @@ class ProfileController extends Controller
 {
     $activities = collect();
     
-    // Recent catches - ADD NULL CHECK
+    // Recent catches 
     $recentCatches = $trainer->teams()
                             ->with('pokemon')
                             ->orderBy('date_caught', 'desc')
@@ -135,11 +134,11 @@ class ProfileController extends Controller
                                     'icon' => 'fas fa-pokeball'
                                 ];
                             })
-                            ->filter(); // Remove null entries
+                            ->filter(); 
     
     $activities = $activities->merge($recentCatches);
     
-    // Recent trades - FIX THIS SECTION COMPLETELY
+    // Recent trades 
     try {
         $recentTrades = \App\Models\Trade::where(function($query) use ($trainer) {
             $query->where('trainer1_id', $trainer->id)
@@ -206,7 +205,7 @@ class ProfileController extends Controller
                 'icon' => 'fas fa-exchange-alt'
             ];
         })
-        ->filter(); // Remove null entries
+        ->filter(); 
         
         $activities = $activities->merge($recentTrades);
     } catch (\Exception $e) {
@@ -319,7 +318,7 @@ class ProfileController extends Controller
             'trade_count' => $item->trade_count
         ];
     })
-    ->filter(); // Remove null entries
+    ->filter(); 
     
     return $partners;
 }

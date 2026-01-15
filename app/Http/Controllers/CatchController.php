@@ -6,7 +6,6 @@ use App\Models\Pokemon;
 use App\Models\Team;
 use App\Models\CatchHistory;
 use Illuminate\Http\Request;
-// TANGGALIN: use Illuminate\Support\Facades\Auth;
 
 class CatchController extends Controller
 {

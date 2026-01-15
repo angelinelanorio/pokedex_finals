@@ -612,7 +612,6 @@
         gap: 10px;
     }
 
-    /* Sa Catch Tab din, ayusin ang centering */
 #pokemonCard {
     text-align: center;
 }
@@ -701,7 +700,7 @@
         border-color: #FF0000;
     }
 
-    /* Modal Styles - ADD THIS SECTION */
+    /* Modal Styles */
     .modal {
         display: none;
         position: fixed;
@@ -1007,7 +1006,6 @@
     to { transform: rotate(360deg); }
 }
 
-/* ADD THESE ANIMATIONS TO YOUR STYLE SECTION */
 @keyframes fadeIn {
     from { opacity: 0.5; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -1058,7 +1056,6 @@
     box-shadow: 0 8px 25px rgba(255, 0, 0, 0.15);
 }
 
-/* Add these to your existing animations */
 @keyframes fadeIn {
     from { 
         opacity: 0; 
@@ -1126,7 +1123,7 @@
     <div style="text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px solid #eee;">
     <h1 style="color: #FF0000; margin: 0 0 10px 0; font-size: 36px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 15px;">
         <i class="fas fa-book-open" style="color: #FF0000;"></i> 
-        Kanto Pokédex
+        Pokédex
     </h1>
     <p style="color: #666; font-size: 18px; margin: 0;">
         Explore all {{ $totalPokemonCount ?? 151 }} Generation | Pokémon
@@ -1173,7 +1170,6 @@
                 Click on a Pokémon to attempt to catch it. Higher level Pokémon are harder to catch!
             </div>
 
-            <!-- REST OF YOUR CATCH TAB CODE REMAINS THE SAME -->
             @if(isset($randomPokemon))
                 <!-- Pokémon Card -->
                 <div id="pokemonCard" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 15px; padding: 25px; margin-bottom: 25px; text-align: center; border: 2px solid #ddd; position: relative;">
@@ -1487,13 +1483,7 @@
                     <div style="font-size: 24px; font-weight: bold; color: #F44336;">{{ $totalPokemonCount - ($caughtCount ?? 0) }}</div>
                     <div style="font-size: 12px; color: #666;">Missing</div>
                 </div>
-                <div style="text-align: center;">
-                    @php
-                        $inTeamCount = isset($inTeamCount) ? $inTeamCount : 0;
-                    @endphp
-                    <div style="font-size: 24px; font-weight: bold; color: #2196F3;">{{ $inTeamCount }}</div>
-                    <div style="font-size: 12px; color: #666;">In Team</div>
-                </div>
+                
             </div>
         </div>
     </div>

@@ -60,7 +60,7 @@ class LoginController extends Controller
             'trainer_name' => $trainer->first_name,
             'trainer_email' => $trainer->email,
             'trainer_region' => $trainer->region,
-            'trainer_level' => $trainer->level, // THIS IS NOW LEVEL 2!
+            'trainer_level' => $trainer->level, 
             'trainer_streak' => $trainer->daily_streak,
             'logged_in' => true
         ]);
@@ -147,7 +147,7 @@ class LoginController extends Controller
                 'trainer_name' => $trainer->first_name,
                 'trainer_email' => $trainer->email,
                 'trainer_region' => $trainer->region,
-                'trainer_level' => $trainer->level, // UPDATED!
+                'trainer_level' => $trainer->level, 
                 'trainer_streak' => $trainer->daily_streak,
                 'logged_in' => true
             ]);

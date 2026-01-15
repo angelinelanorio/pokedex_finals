@@ -10,7 +10,6 @@ class CatchHistory extends Model
 {
     use HasFactory;
 
-    // ADD THIS LINE - SPECIFY TABLE NAME
     protected $table = 'catch_history';
     
     protected $fillable = [

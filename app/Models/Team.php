@@ -41,15 +41,10 @@ class Team extends Model
         return $this->nickname ?: $this->pokemon->name;
     }
 
-    // FIXED EXPERIENCE FORMULA:
-    // Level 1: 50 exp needed (50)
-    // Level 2: 150 exp needed (50 + 100)
-    // Level 3: 250 exp needed (50 + 100 + 100)
-    // Formula: 50 + (level - 1) * 100
     public function getExperienceForNextLevelAttribute(): int
     {
         if ($this->level == 1) {
-            return 50; // Level 1 needs 50 exp
+            return 50; 
         }
         return 50 + (($this->level - 1) * 100);
     }
@@ -75,7 +70,6 @@ class Team extends Model
     \Log::info("Before: Level {$this->level}, Exp: {$this->experience}");
     \Log::info("Adding: {$exp} EXP");
     
-    // Simple addition muna, walang level-up logic
     $this->experience += $exp;
     
     // Check if can level up

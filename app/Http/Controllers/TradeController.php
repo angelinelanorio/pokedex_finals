@@ -68,13 +68,11 @@ class TradeController extends Controller
                 ];
             });
         
-        // Palitan ang lines 73-101 ng COMPLETE FIX:
-// Palitan ang lines 73-101 ng:
 $aiTrainers = \App\Models\AITrainer::all()
     ->map(function($aiTrainer) {
         $teamPokemon = collect();
         
-        // ✅ FIX: Handle string or array team_data
+        // Handle string or array team_data
         $teamData = $aiTrainer->team_data;
         
         // If string, decode it
@@ -86,7 +84,7 @@ $aiTrainers = \App\Models\AITrainer::all()
         if ($teamData && is_array($teamData)) {
             foreach ($teamData as $teamMember) {
                 if (!is_array($teamMember) || !isset($teamMember['pokemon_id'])) {
-                    continue; // Skip invalid entries
+                    continue;
                 }
                 
                 $pokemon = Pokemon::find($teamMember['pokemon_id']);
@@ -207,7 +205,7 @@ $aiTrainers = \App\Models\AITrainer::all()
     $yourPokemon = Pokemon::findOrFail($yourPokemonId);
     
     // ============ NEW: GET YOUR POKÉMON'S LEVEL ============
-    $yourLevel = 1; // Default level
+    $yourLevel = 1; 
     $yourTeamMember = Team::where('trainer_id', $userId)
                          ->where('pokemon_id', $yourPokemonId)
                          ->where('is_active', true)
@@ -218,7 +216,7 @@ $aiTrainers = \App\Models\AITrainer::all()
     }
     
     $yourValue = $this->calculatePokemonValue($yourPokemon);
-    $yourValue *= ($yourLevel / 10); // Adjust value based on level
+    $yourValue *= ($yourLevel / 10); 
     
     // Get AI's team Pokémon
     $aiTeam = $this->getAITeam($aiTrainerId);
@@ -230,7 +228,7 @@ $aiTrainers = \App\Models\AITrainer::all()
         ]);
     }
     
-    // Find fair Pokémon from AI's team (considering level difference)
+    // Find fair Pokémon from AI's team 
     $fairOffers = collect();
     foreach ($aiTeam as $pokemon) {
         // Skip same Pokémon
@@ -241,7 +239,7 @@ $aiTrainers = \App\Models\AITrainer::all()
         // Get AI Pokémon level
         $aiPokemonLevel = $this->getAIPokemonLevel($pokemon->id, $aiTrainerId);
         
-        // 🎯 NEW: Skip if level difference is too big (more than 10 levels)
+        // Skip if level difference is too big (more than 10 levels)
         $levelDiff = abs($aiPokemonLevel - $yourLevel);
         if ($levelDiff > 10) {
             continue;
@@ -329,7 +327,6 @@ $aiTrainers = \App\Models\AITrainer::all()
 ]);
 }
     
-    // Execute a trade
     // Execute a trade
 public function store(Request $request)
 {
@@ -425,7 +422,6 @@ if ($trainer2Id >= 100) {
         ->first();
     
     if ($existingPokemon) {
-        // Kung meron ka na, gamitin ang HIGHER level
         $newLevel = max($existingPokemon->level, $aiPokemonLevel);
         $existingPokemon->update([
             'level' => $newLevel,
@@ -435,14 +431,13 @@ if ($trainer2Id >= 100) {
         $successMessage = 'Trade completed! ' . $pokemon2->name . 
                          ' updated to level ' . $newLevel . '!';
     } else {
-        // Kung wala ka pa, add gamit AI's actual level
         Team::updateOrCreate(
             [
                 'trainer_id' => $trainer1->id,
                 'pokemon_id' => $pokemon2->id
             ],
             [
-                'level' => $aiPokemonLevel, // 👈 DITO - GAMITIN ANG ACTUAL LEVEL
+                'level' => $aiPokemonLevel, 
                 'experience' => 0,
                 'is_active' => true,
                 'date_caught' => now(),
@@ -524,7 +519,6 @@ if ($trainer2Id >= 100) {
     $aiTrainer = \App\Models\AITrainer::find($trainer2Id);
     $aiName = $aiTrainer ? $aiTrainer->name : 'AI Trainer';
     
-    // Para sa AI trainers, gamitin ang DB::table para maiwasan foreign key error
     DB::table('trades')->insert([
         'trainer1_id' => $trainer1->id,
         'trainer2_id' => $trainer2Id,
@@ -551,9 +545,7 @@ if ($trainer2Id >= 100) {
     
     // Check if trade is fair
 private function isTradeFair(Pokemon $pokemon1, Pokemon $pokemon2, $level1 = 1, $level2 = 1): bool
-{
-    // IGNORE STATS - LEVEL BASED LANG
-    
+{ 
     // Kung same level or +/- 3 levels, FAIR
     $levelDiff = abs($level1 - $level2);
     
@@ -624,13 +616,11 @@ private function isTradeFair(Pokemon $pokemon1, Pokemon $pokemon2, $level1 = 1, 
     }
     
     // Get AI's team Pokémon
-// Palitan ang getAITeam() method:
 private function getAITeam($aiTrainerId)
 {
     $aiTrainer = \App\Models\AITrainer::find($aiTrainerId);
     
     if ($aiTrainer) {
-        // ✅ FIX: Handle string or array team_data
         $teamData = $aiTrainer->team_data;
         
         // If string, decode it
@@ -643,7 +633,7 @@ private function getAITeam($aiTrainerId)
             
             foreach ($teamData as $teamMember) {
                 if (!is_array($teamMember) || !isset($teamMember['pokemon_id'])) {
-                    continue; // Skip invalid entries
+                    continue; 
                 }
                 
                 $pokemon = Pokemon::find($teamMember['pokemon_id']);
@@ -715,7 +705,7 @@ private function getAITeam($aiTrainerId)
         }
     }
     
-    // 🔵 PHASE 2: Fallback to predefined array BASED ON YOUR SEEDER
+    // 🔵 PHASE 2: Fallback to predefined array BASED ON SEEDER
     $predefinedLevels = [
         101 => [15 => 35, 18 => 33, 19 => 32], // Brock's levels
         102 => [20 => 28, 15 => 30, 21 => 25], // Misty's levels
@@ -811,9 +801,6 @@ private function getAITeam($aiTrainerId)
         return $collection;
     }
     
-    /**
-     * Create a dummy AI trainer
-     */
     private function createDummyAITrainer(array $aiData)
     {
         $team = $this->createDummyPokemonForAI($aiData['name']);

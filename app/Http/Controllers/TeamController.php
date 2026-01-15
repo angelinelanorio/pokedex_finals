@@ -68,7 +68,7 @@ class TeamController extends Controller
         return view('team.index', compact('team', 'teamStats'));
     }
     
-    // DEMO VERSION: Para makita mo agad ang design
+    // DEMO VERSION
     public function demo()
     {
         // Create demo team data
@@ -287,7 +287,6 @@ class TeamController extends Controller
     }
     
     // Update team member level
-    // Update team member level - SIMPLIFIED VERSION
 public function updateLevel(Request $request, $id)
 {
     \Log::info('UpdateLevel started', [

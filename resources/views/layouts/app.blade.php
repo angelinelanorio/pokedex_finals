@@ -6,10 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Pokédex')</title>
     
-    <!-- ✅ CRITICAL: ADD TAILWIND CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Your existing CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -43,7 +41,7 @@
             width: 100% !important;
             z-index: 1000 !important;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            height: 60px !important; /* FIXED HEIGHT */
+            height: 60px !important;
         }
         
         .nav-container {
@@ -311,7 +309,6 @@
         }
     </style>
 
-    <!-- Custom styles from your profile page -->
     @yield('styles')
     
     <script>
@@ -331,10 +328,7 @@
             
             @if(session('logged_in'))
             <div class="nav-menu">
-                <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </a>
+                
                 <a href="{{ route('pokemon.index') }}" class="nav-link {{ request()->routeIs('pokemon.*') ? 'active' : '' }}">
                     <i class="fas fa-book"></i>
                     <span>Pokédex</span>

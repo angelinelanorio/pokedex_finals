@@ -9,8 +9,7 @@ class Pokemon extends Model
 {
     use HasFactory;
 
-     // ADD THIS LINE
-    protected $table = 'pokemons'; // Specify table name
+    protected $table = 'pokemons'; 
 
     protected $fillable = [
         'pokedex_number', 'name', 'type1', 'type2', 'height', 'weight',
@@ -92,7 +91,6 @@ class Pokemon extends Model
 
     public function scopeByGeneration($query, $generation = 1)
     {
-        // Generation 1: Pokémon #001-151
         if ($generation == 1) {
             return $query->whereBetween('pokedex_number', [1, 151]);
         }

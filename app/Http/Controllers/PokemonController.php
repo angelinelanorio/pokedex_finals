@@ -21,15 +21,9 @@ public function index(Request $request)
     $caughtCount = 0;
     
     if (session('logged_in') && session('trainer_id')) {
-        // Use the CatchHistory model with your custom scope
         $caughtCount = CatchHistory::byTrainer(session('trainer_id'))
             ->successful()
             ->count();
-            
-        // Alternative without scopes:
-        // $caughtCount = CatchHistory::where('trainer_id', session('trainer_id'))
-        //     ->where('success', true)
-        //     ->count();
             
         // Debug logging
         \Log::info("PokemonController - Trainer ID: " . session('trainer_id'));
@@ -57,7 +51,7 @@ public function index(Request $request)
         // Use the stats
         $totalCatches = $catchStats['total_catches'] ?? 0;
         $successRate = $catchStats['success_rate'] ?? 0;
-        $rareFinds = 0; // You can calculate this later
+        $rareFinds = 0; 
         
         return view('pokemon.index', [
             'activeTab' => 'catch',
@@ -239,15 +233,13 @@ public function store(Request $request)
         return view('pokemon.edit', compact('pokemon'));
     }
     
-    // Update Pokémon - SIMPLE FIX
+    // Update Pokémon 
 public function update(Request $request, $id)
 {
-    // Log para makita kung ano ang problema
     error_log("UPDATE CALLED for ID: " . $id);
     error_log("Request data: " . print_r($request->all(), true));
     
     try {
-        // Hanapin ang Pokémon
         $pokemon = Pokemon::find($id);
         
         if (!$pokemon) {
@@ -257,7 +249,7 @@ public function update(Request $request, $id)
             ]);
         }
         
-        // UPDATE - WALANG VALIDATION MUNA
+        // UPDATE
         $pokemon->name = $request->input('name');
         $pokemon->type1 = $request->input('type1');
         $pokemon->type2 = $request->input('type2');
@@ -337,7 +329,7 @@ public function update(Request $request, $id)
     // Get random Pokémon
     $randomPokemon = Pokemon::inRandomOrder()->first();
     
-    // Get user's catch stats (kung meron nang table)
+    // Get user's catch stats 
     $totalCatches = 0;
     $successRate = 0;
     $rareFinds = 0;
